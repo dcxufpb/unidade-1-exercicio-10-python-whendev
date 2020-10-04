@@ -6,7 +6,7 @@ import pytest
 
 def verifica_campo_obrigatorio_objeto(mensagem_esperada, loja):
     with pytest.raises(Exception) as excinfo:
-        loja.dados_loja()
+        loja.validar_campos_obrigatorios()
     the_exception = excinfo.value
     assert mensagem_esperada == str(the_exception)
 
@@ -319,24 +319,29 @@ def test_valida_numero_complemento_e_bairro():
 
 def test_exercicio2_customizado():
 
-    # Defina seus próprios valores para as variáveis a seguir
-    nome_loja = ""
-    logradouro = ""
-    numero = 0
+#     # Defina seus próprios valores para as variáveis a seguir
+    nome_loja = "LOJAS AMERICANAS S.A."
+    logradouro = "R SACADURA CABRAL"
+    numero = 102
     complemento = ""
-    bairro = ""
-    municipio = ""
-    estado = ""
-    cep = ""
-    telefone = ""
-    observacao = ""
-    cnpj = ""
-    inscricao_estadual = ""
+    bairro = "GAMBOA"
+    municipio = "RIO DE JANEIRO"
+    estado = "RJ"
+    cep = "20.221-160"
+    telefone = "(21) 2206-6708"
+    observacao = "47.11-3-02 Comercio varejista de mercadorias em geral"
+    cnpj = "33.014.556/0001-96"
+    inscricao_estadual = "85.687.08-5"
 
     loja_customizada = cupom.Loja(nome_loja, logradouro, numero, complemento,
                                  bairro, municipio, estado, cep, telefone,
                                  observacao, cnpj, inscricao_estadual)
 
     # E atualize o texto esperado abaixo
-    assert (loja_customizada.dados_loja() == """
-""")
+    assert (loja_customizada.dados_loja() == """LOJAS AMERICANAS S.A.
+R SACADURA CABRAL, 102
+GAMBOA - RIO DE JANEIRO - RJ
+CEP:20.221-160 Tel (21) 2206-6708
+47.11-3-02 Comercio varejista de mercadorias em geral
+CNPJ: 33.014.556/0001-96
+IE: 85.687.08-5""")
